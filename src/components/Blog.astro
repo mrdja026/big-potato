@@ -1,0 +1,118 @@
+---
+import { getCollection } from "astro:content";
+
+const blogPosts = await getCollection("blog");
+---
+
+<section id="blog" class="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Blog</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">
+        Latest thoughts and insights
+      </p>
+      <div
+        class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"
+      >
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        blogPosts.map((post) => (
+          <article class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 group">
+            <div class="relative h-48 overflow-hidden bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 flex items-center justify-center">
+              <svg
+                class="w-24 h-24 text-gray-300 dark:text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1"
+                  d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                />
+              </svg>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                <span>
+                  {new Date(post.data.published_at).toLocaleDateString(
+                    "en-US",
+                    {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }
+                  )}
+                </span>
+              </div>
+
+              <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                <a href={`/blog/${post.data.slug || post.slug}`} class="block">
+                  {post.data.title}
+                </a>
+              </h3>
+
+              <p class="text-gray-600 dark:text-gray-400 mb-4 text-base leading-relaxed">
+                {post.data.excerpt}
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                {post.data.tags?.map((tag: string) => (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={`/blog/${post.data.slug || post.slug}`}
+                class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-semibold transition-colors duration-200"
+              >
+                Read More
+                <svg
+                  class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="text-center mt-12">
+      <a
+        href="/blog"
+        class="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 font-semibold"
+      >
+        View All Posts
+        <svg
+          class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

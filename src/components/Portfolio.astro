@@ -1,0 +1,139 @@
+---
+const projects = [
+  {
+    title: "E-Commerce Platform",
+    description:
+      "A modern e-commerce platform with real-time inventory management and payment processing.",
+    image:
+      "https://images.unsplash.com/photo-1557821552-17105176677c?w=400&h=250&fit=crop",
+    tags: ["React", "Node.js", "MongoDB", "Stripe"],
+    link: "#",
+  },
+  {
+    title: "Task Management App",
+    description:
+      "Collaborative task management application with real-time updates and team features.",
+    image:
+      "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=250&fit=crop",
+    tags: ["Vue.js", "Firebase", "Socket.io", "Tailwind"],
+    link: "#",
+  },
+  {
+    title: "Analytics Dashboard",
+    description:
+      "Interactive data visualization dashboard with custom charts and metrics tracking.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
+    tags: ["Angular", "D3.js", "Express", "PostgreSQL"],
+    link: "#",
+  },
+  {
+    title: "Social Media App",
+    description:
+      "Mobile-first social media application with real-time messaging and content sharing.",
+    image:
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=250&fit=crop",
+    tags: ["React Native", "GraphQL", "AWS", "Redis"],
+    link: "#",
+  },
+  {
+    title: "Learning Management System",
+    description:
+      "Educational platform with video courses, quizzes, and progress tracking.",
+    image:
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop",
+    tags: ["Next.js", "Prisma", "Stripe", "Vercel"],
+    link: "#",
+  },
+  {
+    title: "Fitness Tracker",
+    description:
+      "Health and fitness tracking application with workout plans and progress monitoring.",
+    image:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=250&fit=crop",
+    tags: ["Flutter", "Firebase", "TensorFlow", "Google Fit"],
+    link: "#",
+  },
+];
+---
+
+<section
+  id="portfolio"
+  class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800"
+>
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">My Work</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">
+        Explore some of my recent projects
+      </p>
+      <div
+        class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"
+      >
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        projects.map((project) => (
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 group">
+            <div class="relative h-48 overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                <div class="p-4">
+                  <a
+                    href={project.link}
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                  >
+                    View Project
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                {project.title}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-4 text-base leading-relaxed">
+                {project.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="text-center mt-12">
+      <a
+        href="#"
+        class="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 font-semibold"
+      >
+        View All Projects
+        <svg
+          class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

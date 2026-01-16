@@ -15,5 +15,5 @@ const { post } = Astro.props;
 ---
 
 <BlogPost frontmatter={post.data}>
-  <MarkdownRenderer content={post.rendered.html} />
+  <MarkdownRenderer content={post.body} />
 </BlogPost>

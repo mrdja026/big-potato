@@ -19,6 +19,7 @@ author:
     website: "https://mrdjan.net"
 published_at: "Tue Sep 30 2025"
 excerpt: "Why I took a career break, what I built with AI and RAG systems, and lessons from ~5 months of experimenting."
+image: "/hero_image.png"
 ---
 
 # I took a career break

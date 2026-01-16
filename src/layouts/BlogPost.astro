@@ -11,6 +11,14 @@ const { frontmatter } = Astro.props;
   <main class="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
     <article class="max-w-4xl mx-auto">
       <div class="mb-8">
+        <div class="mb-6 rounded-lg overflow-hidden shadow-lg">
+          <img
+            src={frontmatter.image || "/hero_image.png"}
+            alt={frontmatter.title}
+            class="w-full h-auto object-cover"
+          />
+        </div>
+
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
           {frontmatter.title}
         </h1>

@@ -1,71 +1,12 @@
 ---
+import { parseCustomBlocks } from "../utils/markdownParser";
+
 interface Props {
   content: string;
 }
 
 const { content } = Astro.props;
-
-// Function to parse custom picture-content blocks
-function parsePictureBlocks(content: string): string {
-  const pictureRegex = /##picture-content([\s\S]*?)##end-picture-content/g;
-  return content.replace(pictureRegex, (match, innerContent) => {
-    const props = parseProps(innerContent);
-    return `
-      <div class="my-8">
-        <img
-          src="${props.src}"
-          alt="${props.title}"
-          id="${props.id}"
-          class="${props.className}"
-          width="${props.width}"
-          height="${props.height}"
-          loading="${props.loading || "lazy"}"
-          ${props.priority ? 'loading="eager" fetchpriority="high"' : ""}
-        />
-      </div>
-    `;
-  });
-}
-
-// Function to parse custom video-content blocks
-function parseVideoBlocks(content: string): string {
-  const videoRegex = /##video-content([\s\S]*?)##end-video-content/g;
-  return content.replace(videoRegex, (match, innerContent) => {
-    const props = parseProps(innerContent);
-    return `
-      <div class="my-8">
-        <video
-          src="${props.src}"
-          poster="${props.poster}"
-          title="${props.title}"
-          id="${props.id}"
-          class="${props.className}"
-          controls
-          ${props.priority ? 'preload="auto"' : 'preload="metadata"'}
-        />
-      </div>
-    `;
-  });
-}
-
-// Helper function to parse key-value props from block content
-function parseProps(content: string): Record<string, string> {
-  const props: Record<string, string> = {};
-  const lines = content
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line);
-  for (const line of lines) {
-    const [key, value] = line.split(":").map((s) => s.trim());
-    if (key && value) {
-      props[key] = value;
-    }
-  }
-  return props;
-}
-
-// Parse all custom blocks
-const parsedContent = parseVideoBlocks(parsePictureBlocks(content));
+const parsedContent = parseCustomBlocks(content);
 ---
 
 <div set:html={parsedContent} />

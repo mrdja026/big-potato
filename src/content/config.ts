@@ -17,6 +17,7 @@ const blog = defineCollection({
     }),
     published_at: z.string(),
     excerpt: z.string(),
+    image: z.string().optional(),
   }),
 });
 

@@ -1,12 +1,12 @@
 ---
-import { parseCustomBlocks } from "../utils/markdownParser";
+import { marked } from "marked";
 
 interface Props {
   content: string;
 }
 
 const { content } = Astro.props;
-const parsedContent = parseCustomBlocks(content);
+const html = marked.parse(content) as string;
 ---
 
-<div set:html={parsedContent} />
+<div set:html={html} />

@@ -3,30 +3,34 @@
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 bg-background/80 dark:bg-d5bdaf/80 backdrop-blur-sm border-b border-border"
+  class="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md"
 >
-  <nav
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
-  >
-    <a
-      href="/"
-      class="text-2xl font-bold bg-gradient-to-r from-d5bdaf to-d6ccc2 bg-clip-text text-transparent"
-    >
-      Your Name
+  <nav class="mx-auto max-w-4xl px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-mono text-sm font-medium text-foreground">
+      mrdjan.net
     </a>
 
-    <div class="hidden md:flex items-center space-x-12">
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-6">
+        <a
+          href="#home"
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Home
+        </a>
+        <a
+          href="#blog"
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Blog
+        </a>
+      </div>
+
       <a
-        href="#home"
-        class="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+        href="#"
+        class="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors duration-200"
       >
-        Home
-      </a>
-      <a
-        href="#blog"
-        class="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
-      >
-        Blog
+        Contact
       </a>
     </div>
 

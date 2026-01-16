@@ -24,18 +24,7 @@ published_at: "Sun Oct 06 2025"
 excerpt: "How I built this blog using an Agentic Tools using my workflow, with concrete examples of when each AI tool excelled in the development process."
 ---
 
-##picture-content
-src: hero_image.png
-title: Hero-Picture
-id: picture-hero
-className: w-full rounded-lg
-width: 1200
-height: 630
-aspectRatio: 16/9
-sizes: (min-width: 768px) 768px, 100vw
-priority: true
-loading: lazy
-##end-picture-content
+![Hero-Picture](/hero_image.png)
 
 # Building This Blog With Agentic Coding
 

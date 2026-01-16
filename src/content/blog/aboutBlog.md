@@ -17,18 +17,7 @@ published_at: "Tue Sep 30 2025"
 excerpt: "What this blog is about, who I am, and what you can expect to find here."
 ---
 
-##picture-content
-src: hero_image.png
-title: Hero-Picture
-id: picture-hero
-className: w-full rounded-lg
-width: 1200
-height: 630
-aspectRatio: 16/9
-sizes: (min-width: 768px) 768px, 100vw
-priority: true
-loading: lazy
-##end-picture-content
+![Hero-Picture](/hero_image.png)
 
 ## To Whom It May Concern
 

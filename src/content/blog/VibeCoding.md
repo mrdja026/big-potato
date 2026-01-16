@@ -19,18 +19,7 @@ published_at: "Fri Oct 30 2025"
 excerpt: "What i was doing while not writing an article on RAG"
 ---
 
-##picture-content
-src: hero_image.png
-title: Hero-Picture
-id: picture-hero
-className: w-full rounded-lg
-width: 1200
-height: 630
-aspectRatio: 16/9
-sizes: (min-width: 768px) 768px, 100vw
-priority: true
-loading: lazy
-##end-picture-content
+![Hero-Picture](/hero_image.png)
 
 ## Vibe code induced procrastination
 
@@ -53,14 +42,7 @@ loading: lazy
 - I want to have an app that I can use to see my messages from viewers, and have two commands !song name_of_the_song and !commands that say how you can use !song
 - You need OBS (Open Broadcast Source program for streaming)
 
-##video-content
-src: /vibe-coding-blog/vibe-coding-demo.mp4
-poster: /vibe-coding-blog/vibe-coding-demo.png
-title: DEMO
-id: video-1
-className: w-full rounded-lg
-priority: true
-##end-video-content
+<video src="/vibe-coding-blog/vibe-coding-demo.mp4" poster="/vibe-coding-blog/vibe-coding-demo.png" title="DEMO" id="video-1" class="w-full rounded-lg" controls preload="auto"></video>
 
 **Architecture overview**:
 

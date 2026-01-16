@@ -82,14 +82,7 @@ Self-explanatory. I really felt I was stagnating in my career and wanted to lear
 
 - D&D Agent with TUI, with Fast MCP for rolling dice, attacks, spawning items, and storing local history. Single-player D&D adventure creator that works on Qwen Instruct with tool calling and local Fast MCP for navigating the world with narrative storytelling
 
-##video-content
-src: /dnd_agent_demo.mp4
-poster: /dnd_agent_demo.jpg
-title: DEMO
-id: video-1
-className: w-full rounded-lg
-priority: true
-##end-video-content
+<video src="/dnd_agent_demo.mp4" poster="/dnd_agent_demo.jpg" title="DEMO" id="video-1" class="w-full rounded-lg" controls preload="auto"></video>
 
 - Obsidian → RAG  
   I use Obsidian as a brain dump, so I first implemented barebones RAG with cosine similarity, which worked well for structured data. For unstructured data, I hardened it via libraries, and the results are better but not perfect.
@@ -103,14 +96,7 @@ priority: true
     - Tool call returns JSON (task, issues, sprint, board, epic)
     - Chat about the risks, list subtasks, etc. via LLM (Qwen2.5)
 
-##video-content
-src: /jira_mcp_demo.mp4
-poster: /jira_mcp_demo.png
-title: Jira MCP Demo
-id: video-2
-className: w-full rounded-lg
-priority: true
-##end-video-content
+<video src="/jira_mcp_demo.mp4" poster="/jira_mcp_demo.png" title="Jira MCP Demo" id="video-2" class="w-full rounded-lg" controls preload="auto"></video>
 
 - That video on the top ThreeJS scene maker
     - Using ThreeJS ChatGPT 5 for initial prompt.

@@ -4,106 +4,68 @@ import { getCollection } from "astro:content";
 const blogPosts = await getCollection("blog");
 ---
 
-<section
-  id="blog"
-  class="py-20 px-4 sm:px-6 lg:px-8 bg-background dark:bg-primary"
->
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Blog</h2>
-      <p class="text-muted-foreground mb-4">Latest thoughts and insights</p>
-      <div class="w-24 h-1 bg-gradient-to-r from-d5bdaf to-d6ccc2 mx-auto">
-      </div>
+<section id="blog" class="py-24 border-t border-border px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-4xl">
+    <div class="flex items-baseline justify-between mb-12">
+      <h2 class="text-xl font-semibold tracking-tight">Latest posts</h2>
+      <a
+        href="/blog"
+        class="text-sm text-muted-foreground hover:text-primary transition-colors"
+      >
+        View all →
+      </a>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-2 gap-8">
       {
         blogPosts.map((post) => (
-          <article class="bg-card dark:bg-primary/80 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 group">
-            <div class="relative h-48 overflow-hidden bg-gradient-to-r from-e3d5ca to-d6ccc2 dark:from-primary dark:to-secondary">
-              <img
-                src={post.data.image || "/hero_image.png"}
-                alt={post.data.title}
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-
-            <div class="p-6">
-              <div class="flex items-center text-sm text-muted-foreground mb-3">
+          <article class="bg-transparent border border-border hover:border-primary/50 transition-colors rounded-lg p-6">
+            <div class="space-y-3 pb-3">
+              <div class="flex items-center gap-2 text-xs text-muted-foreground font-mono">
                 <span>
                   {new Date(post.data.published_at).toLocaleDateString(
                     "en-US",
-                    {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }
+                    { month: "numeric", day: "numeric", year: "numeric" }
                   )}
                 </span>
+                <span>·</span>
+                <span>5 min read</span>
               </div>
-
-              <h3 class="text-xl font-bold mb-3 group-hover:text-secondary dark:group-hover:text-secondary transition-colors duration-200">
-                <a href={`/blog/${post.data.slug || post.slug}`} class="block">
+              <h3 class="font-medium text-lg leading-snug">
+                <a
+                  href={`/blog/${post.data.slug || post.slug}`}
+                  class="hover:text-primary transition-colors"
+                >
                   {post.data.title}
                 </a>
               </h3>
-
-              <p class="text-muted-foreground mb-4 text-base leading-relaxed">
+              <p class="text-sm text-muted-foreground leading-relaxed">
                 {post.data.excerpt}
               </p>
-
-              <div class="flex flex-wrap gap-2 mb-4">
-                {post.data.tags?.map((tag: string) => (
-                  <span class="px-2 py-1 bg-muted text-muted-foreground text-xs font-medium rounded-full">
+            </div>
+            <div class="space-y-4 pt-0">
+              <div class="flex flex-wrap gap-1.5">
+                {post.data.tags?.slice(0, 4).map((tag: string) => (
+                  <span class="text-xs font-normal bg-secondary/50 text-foreground px-2 py-1 rounded-full">
                     {tag}
                   </span>
                 ))}
+                {post.data.tags && post.data.tags.length > 4 && (
+                  <span class="text-xs font-normal bg-secondary/50 text-foreground px-2 py-1 rounded-full">
+                    +{post.data.tags.length - 4}
+                  </span>
+                )}
               </div>
-
-              <a
-                href={`/blog/${post.data.slug || post.slug}`}
-                class="inline-flex items-center text-primary hover:text-primary/80 dark:text-secondary dark:hover:text-secondary/80 text-sm font-semibold transition-colors duration-200"
-              >
-                Read More
-                <svg
-                  class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
+              <div class="flex items-center gap-2 text-xs text-muted-foreground">
+                <div class="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center font-mono text-primary text-[10px]">
+                  MS
+                </div>
+                <span>Mrdjan Stajic</span>
+              </div>
             </div>
           </article>
         ))
       }
-    </div>
-
-    <div class="text-center mt-12">
-      <a
-        href="/blog"
-        class="inline-flex items-center px-6 py-3 bg-card dark:bg-primary/80 text-foreground dark:text-primary-foreground border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-primary/60 transition-colors duration-200 font-semibold"
-      >
-        View All Posts
-        <svg
-          class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-        </svg>
-      </a>
     </div>
   </div>
 </section>

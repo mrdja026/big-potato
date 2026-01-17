@@ -58,6 +58,7 @@ const blogPosts = await getCollection("blog");
                   <a
                     href={`/blog/${post.data.slug || post.slug}`}
                     class="block"
+                    transition:animate="fade"
                   >
                     {post.data.title}
                   </a>
@@ -78,6 +79,7 @@ const blogPosts = await getCollection("blog");
                 <a
                   href={`/blog/${post.data.slug || post.slug}`}
                   class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-semibold transition-colors duration-200"
+                  transition:animate="fade"
                 >
                   Read More
                   <svg

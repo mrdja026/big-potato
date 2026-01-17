@@ -6,7 +6,7 @@
   class="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md"
 >
   <nav class="mx-auto max-w-4xl px-6 py-4 flex items-center justify-between">
-    <a href="/" class="font-mono text-sm font-medium text-foreground">
+    <a href="/" class="font-mono text-sm font-medium text-foreground" transition:animate="fade">
       mrdjan.net
     </a>
 
@@ -27,8 +27,9 @@
       </div>
 
       <a
-        href="#"
+        href="/contact"
         class="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors duration-200"
+        transition:animate="fade"
       >
         Contact
       </a>
@@ -147,8 +148,12 @@
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", (e) => {
-      e.preventDefault();
       const href = anchor.getAttribute("href");
+      // Skip if href is just "#"
+      if (href === "#") {
+        return;
+      }
+      e.preventDefault();
       if (href) {
         const target = document.querySelector(href);
         if (target) {

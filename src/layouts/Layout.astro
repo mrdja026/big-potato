@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -24,7 +25,8 @@ import "../styles/global.css";
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{Astro.props.title || "Your Name - Web Portfolio"}</title>
-    <script>
+    <ClientRouter />
+    <script is:inline>
       // Dark mode toggle functionality
       const theme =
         localStorage.getItem("theme") ||
@@ -56,21 +58,6 @@ import "../styles/global.css";
         --text-primary: #1e293b;
         --text-secondary: #64748b;
         --border-color: #e2e8f0;
-      }
-
-      .animate-in {
-        animation: fadeIn 0.5s ease-in-out;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
       }
     </style>
   </head>

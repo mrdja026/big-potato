@@ -11,6 +11,7 @@ const blogPosts = await getCollection("blog");
       <a
         href="/blog"
         class="text-sm text-muted-foreground hover:text-primary transition-colors"
+        transition:animate="fade"
       >
         View all →
       </a>
@@ -35,6 +36,7 @@ const blogPosts = await getCollection("blog");
                 <a
                   href={`/blog/${post.data.slug || post.slug}`}
                   class="hover:text-primary transition-colors"
+                  transition:animate="fade"
                 >
                   {post.data.title}
                 </a>

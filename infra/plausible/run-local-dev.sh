@@ -35,6 +35,20 @@ fi
 
 docker compose -f docker-compose.local.yml up -d clickhouse postgres
 
+ready=false
+for _ in {1..30}; do
+  if docker compose -f docker-compose.local.yml exec -T clickhouse clickhouse-client -q "SELECT 1" >/dev/null 2>&1; then
+    ready=true
+    break
+  fi
+  sleep 1
+done
+
+if [ "$ready" = false ]; then
+  echo "ClickHouse did not become ready in time"
+  exit 1
+fi
+
 docker compose -f docker-compose.local.yml exec -T clickhouse clickhouse-client -q "CREATE DATABASE IF NOT EXISTS plausible"
 
 docker compose -f docker-compose.local.yml run --rm plausible sh -c "./bin/plausible eval Plausible.Release.migrate"
@@ -44,6 +58,14 @@ docker compose -f docker-compose.local.yml run --rm plausible sh -c './bin/plaus
 docker compose -f docker-compose.local.yml up -d
 
 cd "$REPO_DIR"
+
+if [ ! -d node_modules ]; then
+  if command -v pnpm >/dev/null 2>&1; then
+    pnpm install
+  else
+    npm install
+  fi
+fi
 
 if command -v pnpm >/dev/null 2>&1; then
   pnpm dev

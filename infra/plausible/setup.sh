@@ -33,6 +33,20 @@ fi
 
 docker compose up -d clickhouse postgres
 
+ready=false
+for _ in {1..30}; do
+  if docker compose exec -T clickhouse clickhouse-client -q "SELECT 1" >/dev/null 2>&1; then
+    ready=true
+    break
+  fi
+  sleep 1
+done
+
+if [ "$ready" = false ]; then
+  echo "ClickHouse did not become ready in time"
+  exit 1
+fi
+
 docker compose run --rm plausible sh -c "./bin/plausible eval Plausible.Release.migrate"
 
 docker compose run --rm plausible sh -c './bin/plausible eval "if function_exported?(Plausible.Release, :init_clickhouse, 0), do: Plausible.Release.init_clickhouse(), else: if function_exported?(Plausible.Release, :setup_clickhouse, 0), do: Plausible.Release.setup_clickhouse(), else: if function_exported?(Plausible.Release, :migrate_clickhouse, 0), do: Plausible.Release.migrate_clickhouse(), else: IO.puts(\"No ClickHouse init function found.\")"'

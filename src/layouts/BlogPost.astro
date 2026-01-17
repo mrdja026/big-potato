@@ -3,19 +3,58 @@ import Layout from "./Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
-const { frontmatter } = Astro.props;
+const { frontmatter, slug, readTime } = Astro.props;
+const baseDescription =
+  "Professional web portfolio showcasing projects, blog posts, and contact information";
+const description = frontmatter.excerpt || baseDescription;
+const ogImage = frontmatter.image || "/hero.webp";
+const ogImageUrl = new URL(ogImage, "https://mrdjan.net").toString();
+const tags = frontmatter.tags || [];
+const keywords = [frontmatter.title, frontmatter.excerpt, ...tags]
+  .filter(Boolean)
+  .join(", ");
+const canonicalUrl = `https://mrdjan.net/blog/${slug}`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: frontmatter.title,
+  description,
+  image: [ogImageUrl],
+  author: {
+    "@type": "Person",
+    name: frontmatter.author?.name,
+  },
+  datePublished: frontmatter.published_at,
+  dateModified: frontmatter.published_at,
+  keywords: tags.join(", "),
+  mainEntityOfPage: canonicalUrl,
+};
 ---
 
-<Layout title={`${frontmatter.title} - Your Name`}>
+<Layout
+  title={`${frontmatter.title} - Mrdjan Stajic`}
+  description={description}
+  ogImage={ogImage}
+  ogType="article"
+  keywords={keywords}
+  publishedTime={frontmatter.published_at}
+  articleTags={tags}
+  jsonLd={jsonLd}
+  canonicalUrl={canonicalUrl}
+>
+
   <Header />
   <main class="py-20 px-4 sm:px-6 lg:px-8 bg-background">
     <article class="max-w-4xl mx-auto">
       <div class="mb-8">
         <div class="mb-6 rounded-lg overflow-hidden shadow-lg">
           <img
-            src={frontmatter.image || "/hero_image.png"}
+            src={ogImage}
             alt={frontmatter.title}
             class="w-full h-auto object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
         </div>
 
@@ -66,17 +105,18 @@ const { frontmatter } = Astro.props;
                 })
               }
             </span>
+
+            {readTime && <span>{readTime}</span>}
           </div>
         </div>
 
+
         <div class="flex flex-wrap gap-2 mb-6">
-          {
-            frontmatter.tags?.map((tag: string) => (
-              <span class="px-3 py-1 bg-secondary/50 text-foreground text-sm font-medium rounded-full">
-                {tag}
-              </span>
-            ))
-          }
+          {tags.map((tag: string) => (
+            <span class="px-3 py-1 bg-secondary/50 text-foreground text-sm font-medium rounded-full">
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -90,6 +130,11 @@ const { frontmatter } = Astro.props;
           <a
             href="#"
             class="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+            data-plausible-event="Share Link Click"
+            data-plausible-props={JSON.stringify({
+              label: "Twitter",
+              slug
+            })}
           >
             <svg
               class="w-5 h-5 text-muted-foreground"
@@ -105,6 +150,11 @@ const { frontmatter } = Astro.props;
           <a
             href="#"
             class="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+            data-plausible-event="Share Link Click"
+            data-plausible-props={JSON.stringify({
+              label: "Instagram",
+              slug
+            })}
           >
             <svg
               class="w-5 h-5 text-muted-foreground"
@@ -120,6 +170,11 @@ const { frontmatter } = Astro.props;
           <a
             href="#"
             class="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+            data-plausible-event="Share Link Click"
+            data-plausible-props={JSON.stringify({
+              label: "X",
+              slug
+            })}
           >
             <svg
               class="w-5 h-5 text-muted-foreground"

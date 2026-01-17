@@ -1,65 +1,391 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+
+const siteUrl = "https://mrdjan.net";
+const {
+  title,
+  description =
+    "Professional web portfolio showcasing projects, blog posts, and contact information",
+  ogImage = "/hero.webp",
+  ogType = "website",
+  keywords = "web development, portfolio, projects, blog, contact",
+  canonicalUrl: canonicalUrlProp,
+  publishedTime,
+  articleTags,
+  jsonLd,
+} = Astro.props;
+
+const pageTitle = title ?? "Mrdjan Stajic - Web Portfolio";
+const canonicalUrl =
+  canonicalUrlProp ?? new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL(ogImage, siteUrl).toString();
+const articleTagList = Array.isArray(articleTags) ? articleTags : [];
+const metaKeywords = [keywords, ...articleTagList].filter(Boolean).join(", ");
+
+const plausibleEnabled = import.meta.env.PUBLIC_PLAUSIBLE_ENABLED === "true";
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const plausibleScriptUrl = import.meta.env.PUBLIC_PLAUSIBLE_SCRIPT_URL;
+const plausibleApiUrl = import.meta.env.PUBLIC_PLAUSIBLE_API_URL;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+  <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Professional web portfolio showcasing projects, blog posts, and contact information"
-    />
-    <meta name="author" content="Your Name" />
-    <meta
-      name="keywords"
-      content="web development, portfolio, projects, blog, contact"
-    />
-    <meta property="og:title" content="Your Name - Web Portfolio" />
-    <meta
-      property="og:description"
-      content="Professional web portfolio showcasing projects, blog posts, and contact information"
-    />
-    <meta property="og:type" content="website" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Mrdjan Stajic" />
+    <meta name="keywords" content={metaKeywords} />
+    <meta property="og:site_name" content="mrdjan.net" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{Astro.props.title || "Your Name - Web Portfolio"}</title>
+    <title>{pageTitle}</title>
+    {publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    {articleTagList.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+    {plausibleEnabled && plausibleScriptUrl && plausibleDomain && (
+      <script
+        defer
+        src={plausibleScriptUrl}
+        data-domain={plausibleDomain}
+        data-api={plausibleApiUrl}
+      />
+    )}
     <ClientRouter />
     <script is:inline>
-      // Dark mode toggle functionality
-      const theme =
-        localStorage.getItem("theme") ||
-        (window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light");
-      document.documentElement.classList.toggle("dark", theme === "dark");
+      const themeStorageKey = "site_theme_mnet";
+
+      const applyTheme = (nextTheme) => {
+        const resolvedTheme = nextTheme === "dark" ? "dark" : "light";
+        document.documentElement.classList.toggle("dark", resolvedTheme === "dark");
+        document.documentElement.classList.toggle("light", resolvedTheme === "light");
+        document.documentElement.style.colorScheme = resolvedTheme;
+        localStorage.setItem(themeStorageKey, resolvedTheme);
+
+        const themeToggle = document.getElementById("theme-toggle");
+        if (themeToggle) {
+          themeToggle.dataset.theme = resolvedTheme;
+          themeToggle.setAttribute("aria-pressed", String(resolvedTheme === "dark"));
+          themeToggle.setAttribute(
+            "aria-label",
+            resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+          );
+        }
+      };
+
+      const initTheme = () => {
+        const storedTheme = localStorage.getItem(themeStorageKey);
+        const initialTheme = storedTheme === "dark" ? "dark" : "light";
+        applyTheme(initialTheme);
+      };
+
+      const bindThemeToggle = () => {
+        const themeToggle = document.getElementById("theme-toggle");
+        if (!themeToggle) {
+          return;
+        }
+
+        if (themeToggle.dataset.bound !== "true") {
+          themeToggle.dataset.bound = "true";
+          themeToggle.addEventListener("click", () => {
+            const isDark = document.documentElement.classList.contains("dark");
+            applyTheme(isDark ? "light" : "dark");
+          });
+        }
+
+        const storedTheme = localStorage.getItem(themeStorageKey);
+        if (storedTheme) {
+          applyTheme(storedTheme);
+        } else if (!themeToggle.dataset.theme) {
+          applyTheme("light");
+        }
+      };
+
+      window.addEventListener("DOMContentLoaded", () => {
+        initTheme();
+        bindThemeToggle();
+      });
+      document.addEventListener("astro:page-load", () => {
+        initTheme();
+        bindThemeToggle();
+      });
     </script>
-    <style>
-      :root {
-        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
+    {plausibleEnabled && (
+      <script is:inline>
+        const plausibleDedupeMs = 8000;
+        const plausibleLastPageviewKey = "plausible_last_pageview";
+        const plausibleUtmKey = "plausible_utm";
+        const plausibleUtmSentKey = "plausible_utm_sent";
+        const plausibleScrollKey = "plausible_scroll";
 
-      html {
-        scroll-behavior: smooth;
-      }
+        const isPlausibleReady = () => typeof window !== "undefined" && typeof window.plausible === "function";
 
-      .dark {
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --border-color: #334155;
-      }
+        const safeJsonParse = (value) => {
+          if (!value) {
+            return null;
+          }
+          try {
+            return JSON.parse(value);
+          } catch (error) {
+            return null;
+          }
+        };
 
-      .light {
-        --bg-primary: #ffffff;
-        --bg-secondary: #f8fafc;
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        --border-color: #e2e8f0;
-      }
-    </style>
+        const getTextLabel = (element) => {
+          if (!element) {
+            return "";
+          }
+          const aria = element.getAttribute("aria-label");
+          if (aria) {
+            return aria.trim();
+          }
+          const text = element.textContent || "";
+          return text.trim().replace(/\s+/g, " ");
+        };
+
+        const recordUtm = () => {
+          const params = new URLSearchParams(window.location.search);
+          const utmParams = {};
+          ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((key) => {
+            const value = params.get(key);
+            if (value) {
+              utmParams[key] = value;
+            }
+          });
+          if (Object.keys(utmParams).length > 0) {
+            sessionStorage.setItem(plausibleUtmKey, JSON.stringify(utmParams));
+          }
+        };
+
+        const getUtm = () => safeJsonParse(sessionStorage.getItem(plausibleUtmKey)) || {};
+
+        const getUtmProps = () => {
+          if (sessionStorage.getItem(plausibleUtmSentKey) === "true") {
+            return {};
+          }
+          const utm = getUtm();
+          if (Object.keys(utm).length === 0) {
+            return {};
+          }
+          sessionStorage.setItem(plausibleUtmSentKey, "true");
+          return utm;
+        };
+
+        const resetUtmIfNewLanding = () => {
+          const params = new URLSearchParams(window.location.search);
+          const hasUtm = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].some((key) => params.get(key));
+          if (hasUtm) {
+            sessionStorage.removeItem(plausibleUtmSentKey);
+          }
+        };
+
+        const firePlausible = (eventName, props = {}) => {
+          if (!isPlausibleReady()) {
+            return;
+          }
+          const cleanProps = Object.keys(props).length > 0 ? { props } : undefined;
+          window.plausible(eventName, cleanProps);
+        };
+
+        const dedupePageview = (url) => {
+          const now = Date.now();
+          const last = safeJsonParse(sessionStorage.getItem(plausibleLastPageviewKey));
+          if (last && last.url === url && now - last.ts < plausibleDedupeMs) {
+            return true;
+          }
+          sessionStorage.setItem(plausibleLastPageviewKey, JSON.stringify({ url, ts: now }));
+          return false;
+        };
+
+        const trackPageview = () => {
+          if (!isPlausibleReady()) {
+            return;
+          }
+          const url = window.location.href;
+          if (dedupePageview(url)) {
+            return;
+          }
+          const utmProps = getUtmProps();
+          const payload = Object.keys(utmProps).length > 0 ? { u: url, props: utmProps } : { u: url };
+          window.plausible("pageview", payload);
+        };
+
+        const resolveEventName = (element) => {
+          const explicitEvent = element.getAttribute("data-plausible-event");
+          if (explicitEvent) {
+            return explicitEvent;
+          }
+          if (element.closest("nav")) {
+            return "Nav Link Click";
+          }
+          if (element.closest("footer")) {
+            return "Footer Link Click";
+          }
+          return "Link Click";
+        };
+
+        const collectProps = (element) => {
+          const dataProps = safeJsonParse(element.getAttribute("data-plausible-props"));
+          const label = getTextLabel(element);
+          const href = element.getAttribute("href") || undefined;
+          const location = window.location.pathname;
+          const baseProps = { label, href, location };
+          return { ...baseProps, ...(dataProps || {}) };
+        };
+
+        const handleClick = (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          if (!target) {
+            return;
+          }
+          const clickable = target.closest("a, button");
+          if (!clickable) {
+            return;
+          }
+          const isButton = clickable.tagName.toLowerCase() === "button";
+          const explicitEvent = clickable.getAttribute("data-plausible-event");
+          if (isButton && !explicitEvent) {
+            return;
+          }
+          const name = resolveEventName(clickable);
+          const props = collectProps(clickable);
+          firePlausible(name, props);
+        };
+
+        const initScrollTracker = () => {
+          sessionStorage.setItem(plausibleScrollKey, JSON.stringify({ 25: false, 50: false, 75: false, 100: false }));
+        };
+
+        const getScrollState = () => {
+          return safeJsonParse(sessionStorage.getItem(plausibleScrollKey)) || { 25: false, 50: false, 75: false, 100: false };
+        };
+
+        const updateScrollState = (state) => {
+          sessionStorage.setItem(plausibleScrollKey, JSON.stringify(state));
+        };
+
+        const handleScroll = () => {
+          const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+          const scrollHeight = document.documentElement.scrollHeight || 0;
+          const clientHeight = window.innerHeight || document.documentElement.clientHeight || 1;
+          const maxScrollable = Math.max(scrollHeight - clientHeight, 1);
+          const progress = Math.min(100, Math.round((scrollTop / maxScrollable) * 100));
+          const state = getScrollState();
+          [25, 50, 75, 100].forEach((threshold) => {
+            if (!state[threshold] && progress >= threshold) {
+              state[threshold] = true;
+              firePlausible(`Scroll ${threshold}%`, { page: window.location.pathname });
+            }
+          });
+          updateScrollState(state);
+        };
+
+        const handleVideoPlay = (event) => {
+          const target = event.target instanceof HTMLVideoElement ? event.target : null;
+          if (!target) {
+            return;
+          }
+          const id = target.id || undefined;
+          const title = target.getAttribute("title") || undefined;
+          const src = target.currentSrc || target.getAttribute("src") || undefined;
+          firePlausible("Video Play", {
+            page: window.location.pathname,
+            id,
+            title,
+            src
+          });
+        };
+
+        const bootTracking = () => {
+          resetUtmIfNewLanding();
+          recordUtm();
+          initScrollTracker();
+          trackPageview();
+        };
+
+        const trackerState = window.__plausibleTrackerState || { initialized: false };
+        if (!window.__plausibleTrackerState) {
+          window.__plausibleTrackerState = trackerState;
+        }
+
+        if (!trackerState.initialized) {
+          trackerState.initialized = true;
+
+          if (document.readyState === "loading") {
+            window.addEventListener("DOMContentLoaded", bootTracking);
+          } else {
+            bootTracking();
+          }
+
+          document.addEventListener("astro:page-load", () => {
+            resetUtmIfNewLanding();
+            recordUtm();
+            initScrollTracker();
+            trackPageview();
+          });
+
+          window.addEventListener("popstate", () => {
+            initScrollTracker();
+            trackPageview();
+          });
+
+          document.addEventListener("click", handleClick);
+          document.addEventListener("play", handleVideoPlay, true);
+          window.addEventListener("scroll", handleScroll, { passive: true });
+        } else {
+          trackPageview();
+        }
+      </script>
+    )}
+      <style>
+        :root {
+          --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        .dark {
+          --bg-primary: #0f172a;
+          --bg-secondary: #1e293b;
+          --text-primary: #f8fafc;
+          --text-secondary: #94a3b8;
+          --border-color: #334155;
+          --accent-color: #6366f1;
+        }
+
+        .light {
+          --bg-primary: #ffffff;
+          --bg-secondary: #f8fafc;
+          --text-primary: #1e293b;
+          --text-secondary: #64748b;
+          --border-color: #e2e8f0;
+          --accent-color: #6366f1;
+        }
+
+        body {
+          background: var(--bg-primary);
+          color: var(--text-primary);
+          transition: var(--transition-smooth);
+        }
+      </style>
   </head>
   <body class="bg-background text-foreground transition-colors duration-300">
     <div class="min-h-screen flex flex-col">

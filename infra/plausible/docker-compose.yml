@@ -1,0 +1,45 @@
+services:
+  plausible:
+    image: plausible/analytics:latest
+    restart: unless-stopped
+    command: sh -c "sleep 5 && /entrypoint.sh run"
+    depends_on:
+      - postgres
+      - clickhouse
+      - mailpit
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: plausible
+      POSTGRES_USER: plausible
+      POSTGRES_PASSWORD: plausible
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.3-alpine
+    restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+volumes:
+  postgres_data:
+  clickhouse_data:
+    

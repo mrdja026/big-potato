@@ -5,9 +5,17 @@ import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
 
 const blogPosts = await getCollection("blog");
+
+const fallbackExcerpt =
+  "Notes and learnings on software, AI experiments, and project building.";
 ---
 
-<Layout title="mrdjan.net">
+<Layout
+  title="Blog - mrdjan.net"
+  description="Articles on software engineering, AI experiments, and project building."
+  keywords="software engineering, AI, web development, Astro, blog"
+  canonicalUrl="https://mrdjan.net/blog"
+>
   <Header />
   <main class="py-20 px-4 sm:px-6 lg:px-8 bg-background">
     <div class="max-w-6xl mx-auto">
@@ -20,27 +28,21 @@ const blogPosts = await getCollection("blog");
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
         {
           blogPosts.map((post) => (
-            <article class="bg-card border border-border rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300 group">
-              <div class="relative h-48 overflow-hidden bg-gradient-to-r from-secondary to-accent/20 flex items-center justify-center">
-                <svg
-                  class="w-24 h-24 text-muted-foreground"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1"
-                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                  />
-                </svg>
+            <article class="bg-card border border-border rounded-lg overflow-hidden transform transition-transform duration-300 group hover:scale-[1.02] flex flex-col h-full">
+              <div class="relative h-48 overflow-hidden bg-gradient-to-r from-secondary to-accent/20">
+                <img
+                  src="/hero_image.png"
+                  alt="Blog post cover"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent"></div>
               </div>
 
-              <div class="p-6">
+              <div class="p-6 flex flex-col flex-1">
                 <div class="flex items-center text-sm text-muted-foreground mb-3">
                   <span>
                     {new Date(post.data.published_at).toLocaleDateString(
@@ -58,6 +60,12 @@ const blogPosts = await getCollection("blog");
                   <a
                     href={`/blog/${post.data.slug || post.slug}`}
                     class="block"
+                    data-plausible-event="Blog Post Click"
+                    data-plausible-props={JSON.stringify({
+                      title: post.data.title,
+                      slug: post.data.slug || post.slug,
+                      location: "blog-index"
+                    })}
                     transition:animate="fade"
                   >
                     {post.data.title}
@@ -65,11 +73,11 @@ const blogPosts = await getCollection("blog");
                 </h3>
 
                 <p class="text-muted-foreground mb-4 text-sm leading-relaxed">
-                  {post.data.excerpt}
+                  {post.data.excerpt || fallbackExcerpt}
                 </p>
 
                 <div class="flex flex-wrap gap-2 mb-4">
-                  {post.data.tags?.map((tag: string) => (
+                  {post.data.tags.map((tag: string) => (
                     <span class="px-2 py-1 bg-secondary/50 text-foreground text-xs font-medium rounded-full">
                       {tag}
                     </span>
@@ -78,7 +86,13 @@ const blogPosts = await getCollection("blog");
 
                 <a
                   href={`/blog/${post.data.slug || post.slug}`}
-                  class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-semibold transition-colors duration-200"
+                  class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-semibold transition-colors duration-200 mt-auto"
+                  data-plausible-event="Blog Post Click"
+                  data-plausible-props={JSON.stringify({
+                    title: post.data.title,
+                    slug: post.data.slug || post.slug,
+                    location: "blog-index-read-more"
+                  })}
                   transition:animate="fade"
                 >
                   Read More

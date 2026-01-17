@@ -39,7 +39,14 @@
               </div>
               <div>
                 <h4 class="font-semibold mb-1">Email</h4>
-                <p class="text-muted-foreground">hello@yourname.com</p>
+                <a
+                  href="mailto:hello@yourname.com"
+                  class="text-muted-foreground hover:text-primary transition-colors"
+                  data-plausible-event="Contact Link Click"
+                  data-plausible-props='{"label":"Email"}'
+                >
+                  hello@yourname.com
+                </a>
               </div>
             </div>
 
@@ -63,7 +70,14 @@
               </div>
               <div>
                 <h4 class="font-semibold mb-1">Phone</h4>
-                <p class="text-muted-foreground">+1 (555) 123-4567</p>
+                <a
+                  href="tel:+15551234567"
+                  class="text-muted-foreground hover:text-primary transition-colors"
+                  data-plausible-event="Contact Link Click"
+                  data-plausible-props='{"label":"Phone"}'
+                >
+                  +1 (555) 123-4567
+                </a>
               </div>
             </div>
 
@@ -92,7 +106,16 @@
               </div>
               <div>
                 <h4 class="font-semibold mb-1">Location</h4>
-                <p class="text-muted-foreground">San Francisco, CA</p>
+                <a
+                  href="https://maps.google.com/?q=San%20Francisco%2C%20CA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-muted-foreground hover:text-primary transition-colors"
+                  data-plausible-event="Contact Link Click"
+                  data-plausible-props='{"label":"Location"}'
+                >
+                  San Francisco, CA
+                </a>
               </div>
             </div>
           </div>
@@ -105,6 +128,8 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+                data-plausible-event="Social Link Click"
+                data-plausible-props='{"label":"LinkedIn","location":"contact"}'
               >
                 <svg
                   class="w-5 h-5 text-muted-foreground"
@@ -122,6 +147,8 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+                data-plausible-event="Social Link Click"
+                data-plausible-props='{"label":"GitHub","location":"contact"}'
               >
                 <svg
                   class="w-5 h-5 text-muted-foreground"
@@ -140,6 +167,8 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+                data-plausible-event="Social Link Click"
+                data-plausible-props='{"label":"Twitter","location":"contact"}'
               >
                 <svg
                   class="w-5 h-5 text-muted-foreground"
@@ -227,6 +256,8 @@
             <button
               type="submit"
               class="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              data-plausible-event="Form Submit Click"
+              data-plausible-props='{"label":"Contact form"}'
             >
               Send Message
             </button>

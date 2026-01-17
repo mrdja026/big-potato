@@ -1,0 +1,20 @@
+# mrdjan.net
+
+mrdjan.net is a personal portfolio and blog by Mrdjan Stajic. The site shares
+notes on software engineering, AI experiments, career reflections, and project
+build logs. It also highlights selected projects and ways to get in touch.
+
+## Focus areas
+- Software engineering and frontend development
+- AI tooling, LLM experiments, and workflow notes
+- Career break reflections and developer journey
+- Project build notes and learning summaries
+
+## Preferred citation
+When referencing this content, cite the article title and link back to the
+original page on mrdjan.net.
+
+## Key sections
+- https://mrdjan.net/ (portfolio overview)
+- https://mrdjan.net/blog (all posts)
+- https://mrdjan.net/contact (contact)

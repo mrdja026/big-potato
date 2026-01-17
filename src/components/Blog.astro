@@ -2,6 +2,9 @@
 import { getCollection } from "astro:content";
 
 const blogPosts = await getCollection("blog");
+
+const fallbackExcerpt =
+  "Notes and learnings on software, AI experiments, and project building.";
 ---
 
 <section id="blog" class="py-24 border-t border-border px-4 sm:px-6 lg:px-8">
@@ -11,6 +14,8 @@ const blogPosts = await getCollection("blog");
       <a
         href="/blog"
         class="text-sm text-muted-foreground hover:text-primary transition-colors"
+        data-plausible-event="Blog Link Click"
+        data-plausible-props='{"label":"View all"}'
         transition:animate="fade"
       >
         View all →
@@ -36,23 +41,29 @@ const blogPosts = await getCollection("blog");
                 <a
                   href={`/blog/${post.data.slug || post.slug}`}
                   class="hover:text-primary transition-colors"
+                  data-plausible-event="Blog Post Click"
+                  data-plausible-props={JSON.stringify({
+                    title: post.data.title,
+                    slug: post.data.slug || post.slug,
+                    location: "home"
+                  })}
                   transition:animate="fade"
                 >
                   {post.data.title}
                 </a>
               </h3>
               <p class="text-sm text-muted-foreground leading-relaxed">
-                {post.data.excerpt}
+                {post.data.excerpt || fallbackExcerpt}
               </p>
             </div>
             <div class="space-y-4 pt-0">
               <div class="flex flex-wrap gap-1.5">
-                {post.data.tags?.slice(0, 4).map((tag: string) => (
+                {post.data.tags.slice(0, 4).map((tag: string) => (
                   <span class="text-xs font-normal bg-secondary/50 text-foreground px-2 py-1 rounded-full">
                     {tag}
                   </span>
                 ))}
-                {post.data.tags && post.data.tags.length > 4 && (
+                {post.data.tags.length > 4 && (
                   <span class="text-xs font-normal bg-secondary/50 text-foreground px-2 py-1 rounded-full">
                     +{post.data.tags.length - 4}
                   </span>

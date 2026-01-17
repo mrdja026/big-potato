@@ -1,12 +1,26 @@
 ---
-import { marked } from "marked";
+import { parseCustomBlocks } from "../utils/markdownParser";
+
+// Dynamically import marked
+const marked = await import("marked");
 
 interface Props {
   content: string;
 }
 
 const { content } = Astro.props;
-const html = marked.parse(content) as string;
+let parsedContent = parseCustomBlocks(content);
+
+// Create a custom renderer to preserve HTML
+const renderer = new marked.Renderer();
+renderer.html = (token: any) => token.text; // Render HTML as-is
+
+// Parse markdown with marked
+const html = marked.parse(parsedContent, {
+  breaks: true,
+  gfm: true,
+  renderer: renderer
+});
 ---
 
 <div set:html={html} />

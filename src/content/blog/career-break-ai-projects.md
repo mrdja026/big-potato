@@ -1,6 +1,6 @@
 ---
-title: "Career Break in Tech: Why I Took One and What I Built"
-slug: "career-break-ai-projects"
+title: 'Career Break in Tech: Why I Took One and What I Built'
+slug: career-break-ai-projects
 tags:
   - AI
   - career break
@@ -11,15 +11,19 @@ tags:
   - developer journey
   - self-reflection
 author:
-  name: "Mrdjan Stajic"
-  bio: "Senior Frontend Engineer with 10+ years of experience building scalable web applications. Passionate about accessibility, performance, and modern web technologies."
+  name: Mrdjan Stajic
+  bio: >-
+    Senior Frontend Engineer with 10+ years of experience building scalable web
+    applications. Passionate about accessibility, performance, and modern web
+    technologies.
   social:
-    github: "https://github.com/mrdja026"
-    linkedin: "https://www.linkedin.com/in/mrdjan-stajic/"
-    website: "https://mrdjan.net"
-published_at: "Tue Sep 30 2025"
-excerpt: "Why I took a career break, what I built with AI and RAG systems, and lessons from ~5 months of experimenting."
-image: "/hero_image.png"
+    github: 'https://github.com/mrdja026'
+    linkedin: 'https://www.linkedin.com/in/mrdjan-stajic/'
+    website: 'https://mrdjan.net'
+published_at: Tue Sep 30 2025
+excerpt: >-
+  Why I took a career break, what I built with AI and RAG systems, and lessons
+  from ~5 months of experimenting.
 ---
 
 # I took a career break
@@ -39,10 +43,10 @@ image: "/hero_image.png"
 
 ## A couple of reasons why
 
-- **I was tired**
+- <b>I was tired</b>
 - When I started working in 2015, it was normal for people to take career breaks. I knew people from Serbia and other countries who went traveling for 6–9 months around the world.
 - JS Fatigue (that's a term). I'm mainly a frontend dev (JS/TS world), low on backend production projects, but with a lot of side projects.
-- I wanted to explore AI — let's call that a **Bet**
+- I wanted to explore AI — let's call that a <b>Bet</b>
 
 ## I was tired
 
@@ -52,13 +56,13 @@ Self-explanatory. I really felt I was stagnating in my career and wanted to lear
 
 - I read — mostly Sanderson (Stormlight Archive, Mistborn Era 2 read)
 - Played video games, RDR2 (rerun), Clair Obscur: Expedition 33 — even if you don't play games, check out the soundtrack, it's on Spotify
-- Coded for myself, related to the **Bet**
+- Coded for myself, related to the <b>Bet</b>
 
 ## JS Fatigue
 
 - I have been in the industry for 10 years, mostly web, full-stack/frontend
 - In that time period, I've seen the loop: everything on the server, then with JS, then SPA, then again resurgence of server-rendered content
-    - Main difference: **the cloud**
+    - Main difference: <b>the cloud</b>
 - Only abstractions are added, and the ways of fetching data have changed — the end result is the same
 - In my opinion, there are more abstractions now. What really changed is how we draw, fetch data, and interact with the server
 - For frontend devs, it's now normal to know more than just frameworks: cloud knowledge, CI/CD, etc., a bit of infra.
@@ -82,7 +86,14 @@ Self-explanatory. I really felt I was stagnating in my career and wanted to lear
 
 - D&D Agent with TUI, with Fast MCP for rolling dice, attacks, spawning items, and storing local history. Single-player D&D adventure creator that works on Qwen Instruct with tool calling and local Fast MCP for navigating the world with narrative storytelling
 
-<video src="/dnd_agent_demo.mp4" poster="/dnd_agent_demo.jpg" title="DEMO" id="video-1" class="w-full rounded-lg" controls preload="auto"></video>
+##video-content
+src: /dnd_agent_demo.mp4
+poster: /dnd_agent_demo.jpg
+title: DEMO
+id: video-1
+className: w-full rounded-lg
+priority: true
+##end-video-content
 
 - Obsidian → RAG  
   I use Obsidian as a brain dump, so I first implemented barebones RAG with cosine similarity, which worked well for structured data. For unstructured data, I hardened it via libraries, and the results are better but not perfect.
@@ -96,7 +107,14 @@ Self-explanatory. I really felt I was stagnating in my career and wanted to lear
     - Tool call returns JSON (task, issues, sprint, board, epic)
     - Chat about the risks, list subtasks, etc. via LLM (Qwen2.5)
 
-<video src="/jira_mcp_demo.mp4" poster="/jira_mcp_demo.png" title="Jira MCP Demo" id="video-2" class="w-full rounded-lg" controls preload="auto"></video>
+##video-content
+src: /jira_mcp_demo.mp4
+poster: /jira_mcp_demo.png
+title: Jira MCP Demo
+id: video-2
+className: w-full rounded-lg
+priority: true
+##end-video-content
 
 - That video on the top ThreeJS scene maker
     - Using ThreeJS ChatGPT 5 for initial prompt.
@@ -104,7 +122,7 @@ Self-explanatory. I really felt I was stagnating in my career and wanted to lear
     - Burned 1.9M tokens in two conversations until I made it
     - Two phases: first with voxels
     - Models
-    - **Will write a blog post about it**
+    - <b>Will write a blog post about it</b>
 
 ## What I have learned
 
@@ -118,7 +136,7 @@ Self-explanatory. I really felt I was stagnating in my career and wanted to lear
 - Llama hell
 - Different model, different template hell
 - Everybody hallucinates
-- **Stuff can be delivered as MVPs very easily**
+- <b>Stuff can be delivered as MVPs very easily</b>
 
 ## How I did it
 

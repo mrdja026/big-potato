@@ -1,6 +1,6 @@
 ---
-title: "Vibe Coding induced Procastination"
-slug: "vibe-code-procatstination"
+title: Vibe Coding induced Procastination
+slug: vibe-code-procatstination
 tags:
   - career break
   - developer journey
@@ -9,17 +9,31 @@ tags:
   - twitch
   - streaming
 author:
-  name: "Mrdjan Stajic"
-  bio: "Senior Frontend Engineer with 10+ years of experience building scalable web applications. Passionate about accessibility, performance, and modern web technologies."
+  name: Mrdjan Stajic
+  bio: >-
+    Senior Frontend Engineer with 10+ years of experience building scalable web
+    applications. Passionate about accessibility, performance, and modern web
+    technologies.
   social:
-    github: "https://github.com/mrdja026"
-    linkedin: "https://www.linkedin.com/in/mrdjan-stajic/"
-    website: "https://mrdjan.net"
-published_at: "Fri Oct 30 2025"
-excerpt: "What i was doing while not writing an article on RAG"
+    github: 'https://github.com/mrdja026'
+    linkedin: 'https://www.linkedin.com/in/mrdjan-stajic/'
+    website: 'https://mrdjan.net'
+published_at: Fri Oct 30 2025
+excerpt: What i was doing while not writing an article on RAG
 ---
 
-![Hero-Picture](/hero_image.png)
+##picture-content
+src: hero_image.png
+title: Hero-Picture
+id: picture-hero
+className: w-full rounded-lg
+width: 1200
+height: 630
+aspectRatio: 16/9
+sizes: (min-width: 768px) 768px, 100vw
+priority: true
+loading: lazy
+##end-picture-content
 
 ## Vibe code induced procrastination
 
@@ -34,17 +48,24 @@ excerpt: "What i was doing while not writing an article on RAG"
 
 ## Bring into LLM Assisted coding.
 
-- This project was made by a methodology that is good enough for what purpose it serves, and for **ME**
+- This project was made by a methodology that is good enough for what purpose it serves, and for <b>ME</b>
 
-**Purpose**:
+<b>Purpose</b>:
 
 - I want to have a fancy overlay on stream while I'm driving trucks (Euro Truck Simulator West Balkans DLC is good).
 - I want to have an app that I can use to see my messages from viewers, and have two commands !song name_of_the_song and !commands that say how you can use !song
 - You need OBS (Open Broadcast Source program for streaming)
 
-<video src="/vibe-coding-blog/vibe-coding-demo.mp4" poster="/vibe-coding-blog/vibe-coding-demo.png" title="DEMO" id="video-1" class="w-full rounded-lg" controls preload="auto"></video>
+##video-content
+src: /vibe-coding-blog/vibe-coding-demo.mp4
+poster: /vibe-coding-blog/vibe-coding-demo.png
+title: DEMO
+id: video-1
+className: w-full rounded-lg
+priority: true
+##end-video-content
 
-**Architecture overview**:
+<b>Architecture overview</b>:
 
 - React Vite SPA For Overlays
 - One page equals one overlay eg: /live -> Live screen, /pause -> Pause Screen
@@ -52,7 +73,7 @@ excerpt: "What i was doing while not writing an article on RAG"
 - React Native Expo app, so I don't need to look at the other monitor to monitor OBS to know the status of the stream - Running on tablet
 - Everything in development mode, so it only works when I run ./start_all.sh
 
-**About avatar - Animated PNG**
+<b>About avatar - Animated PNG</b>
 
 - Making sprites is hard; there are rules you need to follow. Dimensions and stuff..
 - First, I want to try Comfy UI to animate it. It is interesting.
@@ -63,13 +84,13 @@ excerpt: "What i was doing while not writing an article on RAG"
       - Me coding with a serious face with slight movements
 - If you know anyone with the skills to create these, drop a comment!
 
-**What is good enough**:
+<b>What is good enough</b>:
 
 - I don't know, that's for you to decide. I settled:
 
 - Separation of concerns
-    - **No pooling except where unavoidable**
-    - it works only on my machine, tokens can be stored in memory or local JSONs if they are long-lasting - **TERRIBLE, DO NOT DO THIS**
+    - <b>No pooling except where unavoidable</b>
+    - it works only on my machine, tokens can be stored in memory or local JSONs if they are long-lasting - <b>TERRIBLE, DO NOT DO THIS</b>
     - It looks okayish - I am not on Twitch to make money, I don't even use a microphone (plan for voice modulator is in place), I'm at this point just vibing.
     - Kudos to Cursor and Codex for navigating the docs and setting up the proxies for https so everything can run securely while in dev mode, on Expo WebUI, and on the iPad.
 
@@ -77,13 +98,13 @@ excerpt: "What i was doing while not writing an article on RAG"
 
 - It took me 3 hours to push something that I can have a local version of React Native Expo App, 3 screens (Live/Pause/Other), and a twitch-obs-spotify-expo proxy REST Server.
 
-- It was not pretty. I left some comments in the code because it just doesn't follow best practices. Then, when I had that, I used Codex and Cursor primarily to fix it while streaming, playing a video game. Alt tab, read the result, smoke test prompt in, alt tab, go into the game. I did that for 4-5 days and **Good enough for me is accomplished**
+- It was not pretty. I left some comments in the code because it just doesn't follow best practices. Then, when I had that, I used Codex and Cursor primarily to fix it while streaming, playing a video game. Alt tab, read the result, smoke test prompt in, alt tab, go into the game. I did that for 4-5 days and <b>Good enough for me is accomplished</b>
 
-**Acceptance criteria are accomplished**
+<b>Acceptance criteria are accomplished</b>
 
 - I have an OBS stream overlay
 - I can change a scene by clicking a button on my fancy Stream Deck since I have spare hardware
-- **WEBSOCKETS** - why, because I wanted to, fight me in the comments, pooling was a better option in some cases
+- <b>WEBSOCKETS</b> - why, because I wanted to, fight me in the comments, pooling was a better option in some cases
 - I can see messages sent into my chat on my React Native App
 - I can send messages in a React Native App
 - Viewers can request a song via !song Deep Purple Lazy (DMCA Strikes Incoming)
@@ -91,6 +112,6 @@ excerpt: "What i was doing while not writing an article on RAG"
     - I can remove/skip/play the song
     - All of the above works
 
-**Total time**
+<b>Total time</b>
 
 Under 20 hours (most of that while playing games or reading —just another prompt), with refactors done offline (10h), main functionality was built on stream —again, only agentic coding. I could not do that under 30 hours before. Skill issue or not, I made something, and to be honest, the code is not terrible. Of course, if I were to make this into a "serious" project, I would start from zero. But I have a working prototype and know what the problems are to expect

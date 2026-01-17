@@ -1,6 +1,6 @@
 ---
-title: "Building This Blog: My Assisted Coding Workflow"
-slug: "building-blog-ai-coding-workflow"
+title: 'Building This Blog: My Assisted Coding Workflow'
+slug: building-blog-ai-coding-workflow
 tags:
   - AI development
   - cursor
@@ -14,17 +14,33 @@ tags:
   - developer journey
   - self-reflection
 author:
-  name: "Mrdjan Stajic"
-  bio: "Senior Frontend Engineer with 10+ years of experience building scalable web applications. Passionate about accessibility, performance, and modern web technologies."
+  name: Mrdjan Stajic
+  bio: >-
+    Senior Frontend Engineer with 10+ years of experience building scalable web
+    applications. Passionate about accessibility, performance, and modern web
+    technologies.
   social:
-    github: "https://github.com/mrdja026"
-    linkedin: "https://www.linkedin.com/in/mrdjan-stajic/"
-    website: "https://mrdjan.net"
-published_at: "Sun Oct 06 2025"
-excerpt: "How I built this blog using an Agentic Tools using my workflow, with concrete examples of when each AI tool excelled in the development process."
+    github: 'https://github.com/mrdja026'
+    linkedin: 'https://www.linkedin.com/in/mrdjan-stajic/'
+    website: 'https://mrdjan.net'
+published_at: Sun Oct 06 2025
+excerpt: >-
+  How I built this blog using an Agentic Tools using my workflow, with concrete
+  examples of when each AI tool excelled in the development process.
 ---
 
-![Hero-Picture](/hero_image.png)
+##picture-content
+src: hero_image.png
+title: Hero-Picture
+id: picture-hero
+className: w-full rounded-lg
+width: 1200
+height: 630
+aspectRatio: 16/9
+sizes: (min-width: 768px) 768px, 100vw
+priority: true
+loading: lazy
+##end-picture-content
 
 # Building This Blog With Agentic Coding
 
@@ -47,10 +63,10 @@ But here's the interesting part: I didn't use just one tool. I use multiple tool
 ## Cost breakdown
 
 - Global AI tool market is saturated; too many options, AI Fatigue incoming
-- I spent a months testing workflows, and what works best for **me**
+- I spent a months testing workflows, and what works best for <b>me</b>
 - Worked 10 years with ~4 months in between jobs
 
-**Monthly cost:** ~$30 Average
+<b>Monthly cost:</b> ~$30 Average
 
 - Cursor: ~$20 bucks (80% of usage) - Got that sweet LennyNewsletter deal for a bunch of AI tools for a year (~100 euros), and opted out of new Cursor pricing- (so I can calculate in my head how much I can use it)
 - Codex: 20 bucks flat, and it comes with ChatGPT's cheapest subscription
@@ -61,13 +77,13 @@ Cursor quickly became my go-to for most development tasks, and for good reason. 
 
 ### A couple of reasons why
 
-- **Real-time feedback loop** - I could see immediately if the component rendered correctly
-- **Context awareness** - It understands the entire project structure, it's faster in indexing files than VS Code, for example, but that gap is shrinking
-- **Iterative refinement** - Easy to make minor adjustments and see the results
+- <b>Real-time feedback loop</b> - I could see immediately if the component rendered correctly
+- <b>Context awareness</b> - It understands the entire project structure, it's faster in indexing files than VS Code, for example, but that gap is shrinking
+- <b>Iterative refinement</b> - Easy to make minor adjustments and see the results
 
 ### Codex
 
-- **CLI Tool** - When using Codex, I often do not open the editor
+- <b>CLI Tool</b> - When using Codex, I often do not open the editor
     - Create Agents.md file, which is similar to Cursor rules
     - Create a list of features with some tool or write it, and then validate with Gemmini/ClaudeCode/other
     - Star from the first one
@@ -83,7 +99,7 @@ Cursor quickly became my go-to for most development tasks, and for good reason. 
 
 ### Project Setup & Architecture
 
-When I started **this** blog, Cursor handled the foundational setup:
+When I started <b>this</b> blog, Cursor handled the foundational setup:
 What is really important - you should have knowledge of the language that you are writing code in, if you don't, you won't spot errors, and even if you know, the LLMS will make garbage. This blog, I think, can trim 20% LOC and still work.
 
 ```bash
@@ -100,8 +116,8 @@ What made Cursor shine here was its ability to maintain context across multiple 
 
 The bulk of the UI work - components like [`LatestPosts`](src/components/blog/LatestPosts.tsx), the layout system, and the blog post renderer - was done in Cursor. Here's why:
 
-1. **Real-time feedback**: I could see immediately if the component rendered correctly
-2. **Iterative refinement**: Easy to make minor adjustments and see the results
+1. <b>Real-time feedback</b>: I could see immediately if the component rendered correctly
+2. <b>Iterative refinement</b>: Easy to make minor adjustments and see the results
 
 For example, when building the [`MarkdownRenderer`](src/components/MarkdownRenderer.tsx), I started with a basic React Markdown implementation:
 
@@ -161,7 +177,7 @@ Cursor was perfect for generating boilerplate code:
 
 ### Example 1: Building the Blog Post Page
 
-**Cursor handled:**
+<b>Cursor handled:</b>
 
 - The page structure and layout
 - Integration with the layout component
@@ -191,13 +207,13 @@ export default async function BlogPostPage({ params }) {
 
 ### Example 2: SEO Implementation
 
-**Cursor's approach:**
+<b>Cursor's approach:</b>
 
 - Basic Open Graph tags
 - Simple meta descriptions
 - Standard Twitter cards
 
-**KiloCode's contribution:**
+<b>KiloCode's contribution:</b>
 
 - Complete structured data implementation
 - BreadcrumbList schema
@@ -263,18 +279,18 @@ Building this blog with an 80/20 Cursor/Codex workflow was an experiment that pa
 
 For other developers considering AI-assisted development, my recommendation is:
 
-1. **Start with Copilot**: Has a free trial, ChatGPT models are free
-2. **Use Codex/Cursor strategically** for complex algorithms or one-shot implementations
-3. **Maintain human oversight** - Read the thought process of the Agent, and interrupt it if it's bad.
-4. **GIT** - I cannot overstate this; you must know the basics of git to do this effectively
-5. **Be transparent** about your AI usage
-6. **Focus on the strengths** of each tool rather than trying to use one for everything
+1. <b>Start with Copilot</b>: Has a free trial, ChatGPT models are free
+2. <b>Use Codex/Cursor strategically</b> for complex algorithms or one-shot implementations
+3. <b>Maintain human oversight</b> - Read the thought process of the Agent, and interrupt it if it's bad.
+4. <b>GIT</b> - I cannot overstate this; you must know the basics of git to do this effectively
+5. <b>Be transparent</b> about your AI usage
+6. <b>Focus on the strengths</b> of each tool rather than trying to use one for everything
 
 The total cost of ~$40 is reasonable for the productivity gains, and the ability to build complex applications quickly is game-changing.
 
 Does it make me a 10x dev? Like everything else, it depends. If it is a green field, it's a great boilerplate generator. If it is a legacy brownfield, it will yield poor results. But never 10x, most 3-4x for greenfield.
 
-Would I recommend this workflow to other developers? **NO**. Try your own if you have the resources. But there is a lot of free stuff there. Gemmini CLI and Google AI Studio can be used as long as you can create another Gmail account. There are sometimes free models that will work even if you don't have a Cursor subscription.
+Would I recommend this workflow to other developers? <b>NO</b>. Try your own if you have the resources. But there is a lot of free stuff there. Gemmini CLI and Google AI Studio can be used as long as you can create another Gmail account. There are sometimes free models that will work even if you don't have a Cursor subscription.
 
 ### Thanks for reading
 
